@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alsay Altın — Dijital Büyüme Sistemi</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   SUNUM TOKEN SETİ — Editorial Contrast
+   ============================================================ */
+:root {
+  /* Koyu zemin sistemi */
+  --bg:          #0C0B09;
+  --bg-section:  #0F0E0C;
+  --bg-card:     #161410;
+  --bg-elevated: #1E1C17;
+
+  /* Açık zemin sistemi */
+  --bg-light:    #F6F4EF;
+  --bg-light-2:  #EDEAE3;
+  --bg-light-card: #FFFFFF;
+  --bg-light-subtle: #F0EDE6;
+
+  /* Koyu zemin metin */
+  --text:        #EDEAE2;
+  --text-2:      #A8A29A;
+  --text-3:      #645F58;
+
+  /* Açık zemin metin */
+  --text-dark:   #18160F;
+  --text-dark-2: #4A4640;
+  --text-dark-3: #88837C;
+
+  /* Altın aksent */
+  --gold:        #C8A96A;
+  --gold-soft:   #DFC9A0;
+  --gold-dim:    #8B6B3A;
+  --gold-wash:   rgba(200,169,106,.09);
+  --gold-wash-l: rgba(200,169,106,.12); /* açık zeminde */
+
+  /* Kenarlıklar */
+  --border:      #252218;
+  --border-2:    #302C22;
+  --border-gold: rgba(200,169,106,.28);
+  --border-light: #DDD9D0;
+  --border-light-2: #CAC5BB;
+
+  /* Fontlar */
+  --font-d: 'Lora', Georgia, serif;
+  --font-b: 'Inter', system-ui, sans-serif;
+
+  /* Geometri */
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 10px;
+
+  /* Gölgeler */
+  --shadow-card: 0 2px 12px rgba(0,0,0,.35);
+  --shadow-light: 0 2px 12px rgba(0,0,0,.06);
+  --shadow-gold: 0 4px 24px rgba(200,169,106,.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-b);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+/* ============================================================
+   LAYOUT — daha geniş, daha az padding
+   ============================================================ */
+.page-wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+@media (max-width: 768px) { .page-wrap { padding: 0 16px; } }
+
+/* ============================================================
+   CHAPTER DIVIDERS — tam genişlik koyu bant
+   ============================================================ */
+.chapter {
+  background: var(--bg-section);
+  border-top: .5px solid var(--border);
+  border-bottom: .5px solid var(--border);
+  padding: 52px 0;
+  position: relative;
+  overflow: hidden;
+}
+.chapter::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+}
+.chapter-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  align-items: baseline;
+  gap: 32px;
+}
+.chapter-num {
+  font-family: var(--font-b);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.chapter-title {
+  font-family: var(--font-d);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.1;
+}
+.chapter-title em { font-style: italic; color: var(--gold); }
+
+/* ============================================================
+   SECTIONS — koyu/açık alternatif ritim
+   ============================================================ */
+.section { padding: 60px 0; background: var(--bg); }
+[id] { scroll-margin-top: 72px; }
+.section.dark { background: var(--bg-section); }
+.section.light {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+.section.white {
+  background: #FFFFFF;
+  color: var(--text-dark);
+}
+
+/* Açık section içindeki metin renkleri */
+.section.light .lead,
+.section.white .lead { color: var(--text-dark-2); }
+.section.light .card-body,
+.section.white .card-body { color: var(--text-dark-2); }
+.section.light .eyebrow,
+.section.white .eyebrow { color: var(--gold-dim); }
+.section.light .eyebrow-line,
+.section.white .eyebrow-line { background: var(--gold-dim); }
+.section.light .card,
+.section.white .card {
+  background: var(--bg-light-card);
+  border-color: var(--border-light);
+}
+.section.light .card.gold-border,
+.section.white .card.gold-border { border-color: var(--gold-dim); }
+.section.light .hr,
+.section.white .hr { background: var(--border-light); }
+.section.light 
+.section.light .stat-num,
+.section.white 
+.section.light .stat-label,
+.section.white 
+.section.light .tag,
+.section.white .tag {
+  background: var(--bg-light-2);
+  border-color: var(--border-light-2);
+  color: var(--text-dark-3);
+}
+.section.light .tag.gold,
+.section.white .tag.gold {
+  background: var(--gold-wash-l);
+  border-color: var(--gold-dim);
+  color: var(--gold-dim);
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.eyebrow-line { width: 32px; height: .5px; background: var(--gold); flex-shrink: 0; }
+
+.display {
+  font-family: var(--font-d);
+  font-size: clamp(42px, 5.2vw, 68px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--text);
+}
+.display em { font-style: italic; color: var(--gold); }
+
+.headline {
+  font-family: var(--font-d);
+  font-size: clamp(30px, 3.5vw, 46px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+}
+.headline em { font-style: italic; color: var(--gold); }
+.headline.dark { color: var(--text-dark); }
+.section.light .headline,
+.section.white .headline { color: var(--text-dark); }
+
+.lead {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-2);
+  max-width: 680px;
+}
+.lead strong { color: var(--text); font-weight: 600; }
+.lead.dark { color: var(--text-dark-2); }
+.lead.dark strong { color: var(--text-dark); }
+
+.gold-rule {
+  width: 40px; height: .5px;
+  background: var(--gold);
+  margin: 20px 0;
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: .5px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 24px;
+}
+.card.gold-border { border-color: var(--border-gold); }
+.card-title {
+  font-family: var(--font-d);
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.card-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+/* ============================================================
+   GRID LAYOUTS
+   ============================================================ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.grid-aside { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start; }
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4, .grid-aside { grid-template-columns: 1fr; }
+}
+@media (max-width: 1100px) {
+  .grid-4 { grid-template-columns: repeat(2,1fr); }
+}
+
+/* ============================================================
+   STAT BLOCKS
+   ============================================================ */
+
+
+
+
+/* ============================================================
+   DIVIDER LINE
+   ============================================================ */
+.hr { height: .5px; background: var(--border); margin: 40px 0; }
+.hr-gold { height: .5px; background: var(--border-gold); margin: 32px 0; }
+
+/* ============================================================
+   TAGS / CHIPS
+   ============================================================ */
+.tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  border: .5px solid var(--border-2);
+  color: var(--text-3);
+  background: var(--bg-elevated);
+}
+.tag.gold {
+  color: var(--gold);
+  border-color: var(--border-gold);
+  background: var(--gold-wash);
+}
+.tag.light-dark {
+  color: #5A5650;
+  border-color: #D0C8BC;
+  background: #F2EFE8;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.table-wrap {
+  overflow-x: auto;
+  border: .5px solid var(--border);
+  border-radius: var(--r-lg);
+  margin-top: 24px;
+}
+.section.light .table-wrap,
+.section.white .table-wrap {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-light);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead tr { background: var(--bg-elevated); }
+.section.light thead tr,
+.section.white thead tr { background: var(--bg-light-2); }
+th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: .5px solid var(--border);
+  white-space: nowrap;
+}
+.section.light th,
+.section.white th { color: var(--gold-dim); border-bottom-color: var(--border-light); }
+td {
+  padding: 13px 16px;
+  vertical-align: middle;
+  border-bottom: .5px solid var(--border);
+  color: var(--text-2);
+  font-weight: 400;
+  line-height: 1.6;
+}
+.section.light td,
+.section.white td {
+  color: var(--text-dark-2);
+  border-bottom-color: var(--border-light);
+  background: white;
+}
+td strong { color: var(--text); font-weight: 600; }
+.section.light td strong,
+.section.white td strong { color: var(--text-dark); }
+tr:last-child td { border-bottom: none; }
+tr.highlight { background: var(--gold-wash); }
+tr.highlight td { color: var(--text); }
+tr.highlight td strong { color: var(--gold); }
+.section.light tr.highlight td,
+.section.white tr.highlight td { background: rgba(184,138,64,.08); color: var(--text-dark); }
+.section.light tr.highlight td strong,
+.section.white tr.highlight td strong { color: var(--gold-dim); }
+td .score { display: inline-flex; align-items: center; gap: 3px; }
+td .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border-2); flex-shrink: 0; }
+td .dot.on { background: var(--gold); }
+.section.light td .dot,
+.section.white td .dot { background: var(--border-light-2); }
+.section.light td .dot.on,
+.section.white td .dot.on { background: var(--gold-dim); }
+
+/* ============================================================
+   POSITION MAP
+   ============================================================ */
+.position-map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/7;
+  border: .5px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--bg-card);
+  overflow: hidden;
+  margin-top: 28px;
+}
+.map-axis-h {
+  position: absolute;
+  left: 5%; right: 5%;
+  top: 50%;
+  height: .5px;
+  background: var(--border-2);
+}
+.map-axis-v {
+  position: absolute;
+  top: 8%; bottom: 8%;
+  left: 50%;
+  width: .5px;
+  background: var(--border-2);
+}
+.map-label {
+  position: absolute;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.map-dot {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--text-3);
+  transform: translate(-50%, -50%);
+}
+.map-dot.gold {
+  background: var(--gold);
+  width: 12px; height: 12px;
+  box-shadow: 0 0 0 3px var(--gold-wash);
+}
+.map-dot-label {
+  position: absolute;
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-3);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+.map-dot-label.gold { color: var(--gold); font-weight: 500; }
+
+/* ============================================================
+   PHASE TIMELINE
+   ============================================================ */
+.phases { display: flex; gap: 0; margin-top: 32px; }
+.phase {
+  flex: 1;
+  padding: 20px;
+  border: .5px solid var(--border-light);
+  border-right: none;
+  background: var(--bg-light-card);
+  position: relative;
+}
+.phase:last-child { border-right: .5px solid var(--border-light); }
+.phase.active {
+  background: rgba(184,138,64,.1);
+  border-color: rgba(184,138,64,.35);
+}
+.phase-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+.phase-title {
+  font-family: var(--font-d);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.phase-items {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.phase-items li {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-dark-3);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.5;
+}
+.phase-items li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--gold-dim);
+}
+@media (max-width: 900px) {
+  .phases { flex-direction: column; }
+  .phase { border-right: .5px solid var(--border); border-bottom: none; }
+  .phase:last-child { border-bottom: .5px solid var(--border); }
+}
+
+/* ============================================================
+   RACI TABLE
+   ============================================================ */
+.raci-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 500;
+}
+.raci-r { background: var(--gold-wash); color: var(--gold); border: .5px solid var(--border-gold); }
+.raci-a { background: rgba(200,169,106,.18); color: var(--gold-soft); border: .5px solid var(--border-gold); }
+.raci-c { background: var(--bg-elevated); color: var(--text-2); border: .5px solid var(--border-2); }
+.raci-i { background: var(--bg); color: var(--text-3); border: .5px solid var(--border); }
+.raci-x { color: var(--text-3); font-size: 13px; }
+
+/* ============================================================
+   BRAND IDENTITY SHEETS — büyük alt alta
+   ============================================================ */
+.bis-section { padding: 80px 0; background: var(--bg-light); }
+
+.bis-item:last-child { margin-bottom: 0; }
+
+
+
+
+
+
+.bis-img-wrap img,
+.bis-img-wrap object {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+.bis-link:hover {
+  background: rgba(184,138,64,.18);
+  border-color: rgba(140,100,40,.5);
+}
+.bis-link svg { flex-shrink: 0; }
+
+
+
+/* ============================================================
+   SYSTEM BLOCKS
+   ============================================================ */
+.system-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 28px;
+  border: .5px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.system-block {
+  padding: 24px;
+  background: var(--bg-card);
+  border-right: .5px solid var(--border);
+  position: relative;
+}
+.system-block:last-child { border-right: none; }
+.system-block-num {
+  font-size: 32px;
+  font-family: var(--font-d);
+  color: var(--border-2);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.system-block-title {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.system-block-body {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-3);
+  line-height: 1.7;
+}
+.system-block.active-block { background: var(--gold-wash); border-color: var(--border-gold); }
+.system-block.active-block .system-block-num { color: var(--gold-dim); }
+.system-block.active-block .system-block-title { color: var(--gold-soft); }
+
+@media (max-width: 768px) {
+  .system-row { grid-template-columns: 1fr; }
+  .system-block { border-right: none; border-bottom: .5px solid var(--border); }
+  .system-block:last-child { border-bottom: none; }
+}
+
+/* ============================================================
+   HERO / COVER
+   ============================================================ */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  border-bottom: .5px solid var(--border);
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(200,169,106,.04) 0%, transparent 60%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 79px,
+      rgba(255,255,255,.015) 79px,
+      rgba(255,255,255,.015) 80px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 79px,
+      rgba(255,255,255,.015) 79px,
+      rgba(255,255,255,.015) 80px
+    );
+  pointer-events: none;
+}
+.cover-content {
+  position: relative;
+  z-index: 1;
+  padding: 80px 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+.cover-meta {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cover-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+.cover-title {
+  font-family: var(--font-d);
+  font-size: clamp(52px, 7vw, 100px);
+  font-weight: 400;
+  line-height: 1.0;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: 0;
+}
+.cover-title-2 {
+  font-family: var(--font-d);
+  font-size: clamp(52px, 7vw, 100px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.0;
+  color: var(--gold);
+  margin-bottom: 40px;
+  letter-spacing: 0;
+}
+.cover-desc-tight { margin-bottom: 14px; }
+.cover-desc {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 560px;
+  margin-bottom: 52px;
+}
+.cover-bottom {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cover-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cover-stat-num {
+  font-family: var(--font-d);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+}
+.cover-stat-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-2);
+  letter-spacing: .04em;
+}
+.cover-divider {
+  width: .5px; height: 36px;
+  background: var(--border-2);
+}
+.cover-footer {
+  position: absolute;
+  bottom: 32px;
+  left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 28px;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-2);
+  letter-spacing: .08em;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cover-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   NAV / TOC STICKY
+   ============================================================ */
+.sunum-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(14,13,11,.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: .5px solid var(--border);
+  padding: 0 28px;
+}
+.sunum-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  gap: 24px;
+}
+.sunum-nav-brand {
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: .08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.sunum-nav-brand span { color: var(--gold); }
+.sunum-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sunum-nav-links::-webkit-scrollbar { display: none; }
+.sunum-nav-links a {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  text-decoration: none;
+  padding: 0 14px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid transparent;
+  transition: color .18s, border-color .18s;
+  white-space: nowrap;
+}
+.sunum-nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+@media (max-width: 768px) { .sunum-nav-links { display: none; } }
+
+/* ============================================================
+   TWO-WORLD SPLIT
+   ============================================================ */
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  
+  
+}
+
+/* ============================================================
+   ALSAY POSITION CALLOUT
+   ============================================================ */
+
+
+.position-callout-text {}
+
+
+
+/* ============================================================
+   WHAT SYSTEM — 8 element grid
+   ============================================================ */
+.system-8 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 28px;
+  border: .5px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.s8-block {
+  padding: 20px;
+  background: var(--bg-card);
+  border-right: .5px solid var(--border);
+  border-bottom: .5px solid var(--border);
+}
+.s8-block:nth-child(4n) { border-right: none; }
+.s8-block:nth-last-child(-n+4) { border-bottom: none; }
+.s8-num {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+.s8-title {
+  font-family: var(--font-d);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.s8-body {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+@media (max-width: 900px) {
+  .system-8 { grid-template-columns: repeat(2,1fr); }
+  .s8-block:nth-child(4n) { border-right: .5px solid var(--border); }
+  .s8-block:nth-child(2n) { border-right: none; }
+  .s8-block:nth-last-child(-n+4) { border-bottom: .5px solid var(--border); }
+  .s8-block:nth-last-child(-n+2) { border-bottom: none; }
+}
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+
+
+
+
+
+
+/* ============================================================
+   BENCHMARK LIST
+   ============================================================ */
+
+
+.bench-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.bench-lesson {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+@media (max-width: 768px) {  }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.sunum-footer {
+  border-top: .5px solid var(--border);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-brand {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-3);
+  letter-spacing: .1em;
+}
+.footer-brand span { color: var(--gold); }
+.footer-copy {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-3);
+  letter-spacing: .06em;
+}
+
+/* links */
+a { color: inherit; text-decoration: none; }
+
+.closing-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 680px) {
+  .closing-benefits-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) and (min-width: 681px) {
+  .closing-benefits-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) and (min-width: 681px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+.pill-green {
+  font-size: 11px; font-weight: 400;
+  background: rgba(40,120,60,.08);
+  border: .5px solid rgba(40,120,60,.2);
+  border-radius: 3px; padding: 3px 8px;
+  color: #2A7040; white-space: nowrap;
+}
+.pill-amber {
+  font-size: 11px; font-weight: 400;
+  background: rgba(160,100,30,.08);
+  border: .5px solid rgba(160,100,30,.2);
+  border-radius: 3px; padding: 3px 8px;
+  color: #8B5C10; white-space: nowrap;
+}
+
+
+
+.diagnosis-card {
+  background: var(--bg-light);
+  border: .5px solid #D8D5CF;
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.diagnosis-card-num {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-dark-3);
+  margin-bottom: 12px;
+}
+.diagnosis-card-title {
+  font-family: var(--font-d);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--text-dark);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.diagnosis-card-body {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-dark-2);
+  line-height: 1.7;
+}
+
+.preview-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dark-2);
+  border: .5px solid var(--border-light-2);
+  border-radius: var(--r-sm);
+  padding: 7px 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .18s, border-color .18s, background .18s;
+}
+.preview-link:hover {
+  color: var(--gold-dim);
+  border-color: rgba(184,138,64,.4);
+  background: rgba(184,138,64,.06);
+}
+.preview-link:focus-visible {
+  outline: 2px solid rgba(184,138,64,.45);
+  outline-offset: 2px;
+}
+
+a:focus-visible {
+  outline: 2px solid rgba(200,169,106,.45);
+  outline-offset: 2px;
+}
+
+.market-link {
+  color: var(--text-dark);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: .5px solid var(--border-light-2);
+  transition: color .18s, border-color .18s;
+}
+.market-link:hover {
+  color: var(--gold-dim);
+  border-bottom-color: rgba(184,138,64,.4);
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     COVER
+     ============================================================ -->
+<section class="cover" id="cover">
+  <div class="cover-content">
+    <div class="cover-meta">
+      <span>Alsay Altın</span>
+      <div class="cover-meta-dot"></div>
+      <span>Dijital Büyüme Sunumu</span>
+      <div class="cover-meta-dot"></div>
+      <span>Nisan 2026</span>
+    </div>
+
+    <div class="cover-title">Alsay İçin Dijital</div>
+    <div class="cover-title-2">Büyüme Sistemi</div>
+
+    <p class="cover-desc cover-desc-tight">
+      Alsay için dijitalde yapılacak iş, yalnızca siteyi yenilemek ya da sosyal medyada görünmek değildir.
+    </p>
+    <p class="cover-desc">
+      Asıl soru: bu marka dijitalde nasıl güven verir, nasıl görünür ve nasıl satış üretir?
+    </p>
+
+    <div class="cover-bottom">
+      <div class="cover-stat">
+        <div class="cover-stat-num">23</div>
+        <div class="cover-stat-label">Analiz edilen rakip</div>
+      </div>
+      <div class="cover-divider"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">8</div>
+        <div class="cover-stat-label">Büyüme katmanı</div>
+      </div>
+      <div class="cover-divider"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Yol haritası fazı</div>
+      </div>
+      <div class="cover-divider"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">2</div>
+        <div class="cover-stat-label">Büyüme motoru</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-scroll">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      Kaydır
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="sunum-nav">
+  <div class="sunum-nav-inner">
+    <div class="sunum-nav-brand">ALSAY <span>ALTIN</span></div>
+    <ul class="sunum-nav-links">
+      <li><a href="#teshis">Teşhis</a></li>
+      <li><a href="#pazar">Pazar</a></li>
+      <li><a href="#konumlandirma">Konum</a></li>
+      <li><a href="#sistem">Sistem</a></li>
+      <li><a href="#yolharitasi">Yol Haritası</a></li>
+      <li><a href="#roller">Roller</a></li>
+      <li><a href="#marka">Marka</a></li>
+      <li><a href="#kapanis">Kapanış</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     1 — TEŞHİS
+     ============================================================ -->
+<div class="chapter" id="teshis">
+  <div class="chapter-inner">
+    <div class="chapter-num">01</div>
+    <h2 class="chapter-title">Mevcut durum: <em>Ne var, eksik?</em></h2>
+  </div>
+</div>
+
+<section class="section">
+  <div class="page-wrap">
+    <div class="eyebrow"><div class="eyebrow-line"></div>Teşhis</div>
+    <h2 class="headline" style="max-width:640px;margin-bottom:16px;color:var(--text)">Alsay bugün hangi eşikte?</h2>
+    <p class="lead" style="margin-bottom:48px;max-width:680px">Bugünkü yapı, satışa hazır bir dijital mağaza gibi değil; yeni açılmış ama henüz raf düzeni kurulmamış bir vitrin gibi görünüyor.</p>
+
+    <!-- Başlangıç Zemini -->
+    <div style="font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px">Başlangıç Zemini</div>
+    <div class="grid-3" style="gap:14px;margin-bottom:52px">
+      <div class="card gold-border">
+        <div class="card-title">Geniş ürün havuzu</div>
+        <div class="card-body">Yüzük, kolye, küpe, bileklik, zincir, set ve benzeri kategorilerde satışa uygun geniş bir temel mevcut.</div>
+      </div>
+      <div class="card gold-border">
+        <div class="card-title">Fiziksel mağaza güveni</div>
+        <div class="card-body">Yüz yüze satış geçmişi ve mağaza gerçekliği, dijitalde güven inşa etmek için hazır bir avantaj sunuyor.</div>
+      </div>
+      <div class="card gold-border">
+        <div class="card-title">Büyüme vizyonu</div>
+        <div class="card-body">Online satış isteği, Urla mağaza yatırımı ve estetik tarafa açılma sinyali, dönüşüm için doğru eşiğe gelindiğini gösteriyor.</div>
+      </div>
+    </div>
+
+    <!-- Ara başlık -->
+    <div style="border-top:.5px solid var(--border);padding-top:44px;margin-bottom:44px">
+      <h3 style="font-family:var(--font-d);font-size:clamp(22px,2.8vw,32px);font-weight:400;color:var(--text);margin-bottom:16px;line-height:1.2">Dijitalde asıl problem</h3>
+      <p style="font-size:15px;font-weight:400;color:var(--text-2);line-height:1.75;max-width:680px">
+        Online kuyumculukta ürün tek başına yetmez. İnsanlar "güvenilir mi, gerçek mi, kurumsal mı, sorunsuz mu?" sorularına cevap arar. Eğer vitrin, dil, görsel kalite ve güven katmanı zayıfsa; aynı ürün, daha riskli ve daha pahalı algılanabilir.
+      </p>
+    </div>
+
+    <!-- 4 teşhis kartı -->
+    <div class="grid-2" style="gap:14px;margin-bottom:40px">
+      <div class="diagnosis-card">
+        <div class="diagnosis-card-num">01</div>
+        <div class="diagnosis-card-title">Marka dili henüz sistemleşmemiş</div>
+        <div class="diagnosis-card-body">Bugünkü logo, renk ve genel görsel tercihlerin arkasında güçlü bir stratejik kimlik sistemi henüz yok. Bu alan toparlandığında Alsay daha tutarlı, daha ciddi ve daha ayırt edici görünür.</div>
+      </div>
+      <div class="diagnosis-card">
+        <div class="diagnosis-card-num">02</div>
+        <div class="diagnosis-card-title">Dijital vitrin satışa daha hazır hale getirilmeli</div>
+        <div class="diagnosis-card-body">Mevcut site temel olarak kurulmuş durumda. Ancak ürün sunumu, görsel standardizasyon, sayfa hiyerarşisi ve güven katmanları güçlendikçe mağaza deneyimi dijitalde daha ikna edici hale gelir.</div>
+      </div>
+      <div class="diagnosis-card">
+        <div class="diagnosis-card-num">03</div>
+        <div class="diagnosis-card-title">Ölçüm ve veri katmanı netleşmeli</div>
+        <div class="diagnosis-card-body">GA4, Meta Pixel ve event mantığı yapısı netleşmeden reklam yatırımının gerçek verimi sağlıklı okunamaz. Bu alan netleştiğinde karar kalitesi ciddi biçimde yükselir.</div>
+      </div>
+      <div class="diagnosis-card">
+        <div class="diagnosis-card-num">04</div>
+        <div class="diagnosis-card-title">Sosyal görünürlük tek sistem halinde çalışmalı</div>
+        <div class="diagnosis-card-body">İçerik dili, çekim standardı, yayın ritmi ve creator kullanımı aynı çatı altında ilerlediğinde marka daha çağdaş, daha güvenli ve daha hatırlanır görünür.</div>
+      </div>
+    </div>
+
+    <!-- Callout -->
+    <div style="background:#EDEAE3;border:.5px solid #C8A96A;border-radius:var(--r-lg);padding:24px 28px;display:flex;align-items:flex-start;gap:20px;box-shadow:0 2px 10px rgba(0,0,0,.14)">
+      <div style="width:36px;height:36px;border:.5px solid rgba(200,169,106,.5);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold-dim)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px">Önemli Gözlem</div>
+        <div style="font-family:var(--font-d);font-size:20px;font-weight:400;color:var(--text-dark);line-height:1.4">Dijital görünürlük artık yalnızca online satış kanalı değil; <em style="font-style:italic;color:var(--gold-dim)">markanın ciddiyetini, ölçeğini ve iş ortaklığına uygunluğunu gösteren bir meşruiyet katmanıdır.</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     2 — PAZAR & RAKİPLER
+     ============================================================ -->
+<div class="chapter" id="pazar">
+  <div class="chapter-inner">
+    <div class="chapter-num">02</div>
+    <h2 class="chapter-title">Pazar Gerçekleri: <em>Online Kuyumculuk Nerede?</em></h2>
+  </div>
+</div>
+
+<section class="section white">
+  <div class="page-wrap">
+    <div class="eyebrow"><div class="eyebrow-line"></div>Pazar Bağlamı</div>
+    <h2 class="headline" style="margin-bottom:16px;color:var(--text-dark)">Bugün soru farklı.</h2>
+    <p class="lead" style="margin-bottom:48px;max-width:720px;color:var(--text-dark-2)">Soru artık "altın online satılır mı?" değil. Asıl soru; bu kategoride güvenin nasıl kurulduğu, hangi oyuncuların trafik topladığı ve Alsay'ın bu oyuna nereden gireceğidir.</p>
+
+
+
+    <!-- Büyük oyuncular referans bloğu -->
+    <div class="card gold-border" style="margin-bottom:52px;padding:28px 32px">
+      <div style="font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px">Büyük Oyuncular — Referans</div>
+      <p style="font-size:15px;font-weight:400;line-height:1.75;color:var(--text-dark-2);max-width:800px">
+        Zen, Gülaylar, Altınbaş, Atasay, Swarovski ve benzerleri Alsay'ın doğrudan fiyat ve ölçek rakibi değil. Ancak güven dili, hediyeleme kurgusu, kategori sunumu, kampanya netliği, sertifika ve bakım anlatısı açısından önemli referanslar sunuyorlar.
+      </p>
+    </div>
+
+    <!-- Tablo intro -->
+    <div style="margin-bottom:20px">
+      <div style="font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dark-3);margin-bottom:8px">Rakip Haritası — 23 Oyuncu</div>
+      <p style="font-size:14px;font-weight:400;color:var(--text-dark-2);line-height:1.7;max-width:760px">Aşağıdaki 23 oyuncu, yüksek online trafik alan ve pazarda aktif örneklerdir. Bu tablo bize şunu gösteriyor: pazar boş değil; küçük ve orta ölçekli ve hatta yerel oyuncular da dijitalde ciddi görünürlük ve satış zemini kurabiliyor.</p>
+    </div>
+
+    <!-- Market Map Table -->
+    <div class="table-wrap" style="margin-bottom:40px">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px">#</th>
+            <th>Site</th>
+            <th>Ürün Modeli</th>
+            <th>Fiziki Mağaza</th>
+            <th>Şube / Şehir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">1</td>
+            <td><a href="https://www.bilezikci.com/" target="_blank" rel="noopener noreferrer" class="market-link">Bilezikci</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>2 şube · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">2</td>
+            <td><a href="https://www.altinplaza.com/" target="_blank" rel="noopener noreferrer" class="market-link">Altın Plaza</a></td>
+            <td>Karma</td>
+            <td><span class="pill-amber">Yalnızca online</span></td>
+            <td style="color:var(--text-dark-3)">—</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">3</td>
+            <td><a href="https://www.bayargold.com/" target="_blank" rel="noopener noreferrer" class="market-link">Bayar Gold</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>3 şube · Şanlıurfa, İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">4</td>
+            <td><a href="https://www.altinaski.com/" target="_blank" rel="noopener noreferrer" class="market-link">Altınaşkı</a></td>
+            <td>Karma</td>
+            <td><span class="pill-amber">Yalnızca online</span></td>
+            <td style="color:var(--text-dark-3)">—</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">5</td>
+            <td><a href="https://www.altinsepeti.com/" target="_blank" rel="noopener noreferrer" class="market-link">Altın Sepeti</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-amber">Yalnızca online</span></td>
+            <td>Satış ofisi · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">6</td>
+            <td><a href="https://www.fiyonk.com.tr/" target="_blank" rel="noopener noreferrer" class="market-link">Fiyonk</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>2 şube · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">7</td>
+            <td><a href="https://www.altinkaynakstore.com/" target="_blank" rel="noopener noreferrer" class="market-link">Altınkaynak Store</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>6+ şube · Ankara, Konya</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">8</td>
+            <td><a href="https://tufanlarkuyumculuk.com.tr/" target="_blank" rel="noopener noreferrer" class="market-link">Tufanlar</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>1 şube · Muğla</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">9</td>
+            <td><a href="https://www.nusrettaki.com/" target="_blank" rel="noopener noreferrer" class="market-link">Nusret Takı</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>6 şube · İstanbul, Erzurum</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">10</td>
+            <td><a href="https://www.hakanmucevherat.com/" target="_blank" rel="noopener noreferrer" class="market-link">Hakan Mücevherat</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>6+ şube · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">11</td>
+            <td><a href="https://www.elizi.com.tr/" target="_blank" rel="noopener noreferrer" class="market-link">Elizi</a></td>
+            <td>Özel tasarım ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>3 şube · İstanbul, Ankara, Trabzon</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">12</td>
+            <td><a href="https://zerince.com/" target="_blank" rel="noopener noreferrer" class="market-link">Zerince</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>1 şube · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">13</td>
+            <td><a href="https://www.ozkonakkuyumcu.com/" target="_blank" rel="noopener noreferrer" class="market-link">Özkonak</a></td>
+            <td>Özel tasarım ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>4 şube · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">14</td>
+            <td><a href="https://www.bilezikhane.com/" target="_blank" rel="noopener noreferrer" class="market-link">Bilezikhane</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-amber">Yalnızca online</span></td>
+            <td style="color:var(--text-dark-3)">—</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">15</td>
+            <td><a href="https://reiskuyumculuk.com/" target="_blank" rel="noopener noreferrer" class="market-link">Reis</a></td>
+            <td>Özel tasarım ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>11 şube · İstanbul, İzmir, Ankara, Bursa</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">16</td>
+            <td><a href="https://www.kaptankuyumcu.com.tr/" target="_blank" rel="noopener noreferrer" class="market-link">Kaptan Kuyumcu</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>2+ şube · İstanbul, Samsun</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">17</td>
+            <td><a href="https://www.sembolgold.com/" target="_blank" rel="noopener noreferrer" class="market-link">Sembol Gold</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>2 şube · İstanbul</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">18</td>
+            <td><a href="https://www.guneskuyumculuk.com.tr/" target="_blank" rel="noopener noreferrer" class="market-link">Güneş Kuyumculuk</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>1 şube · Samsun</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">19</td>
+            <td><a href="https://www.ozboyaci.com/" target="_blank" rel="noopener noreferrer" class="market-link">Özboyacı</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>5+ şube · Konya</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">20</td>
+            <td><a href="https://www.pianojewellery.com/" target="_blank" rel="noopener noreferrer" class="market-link">Piano Jewellery</a></td>
+            <td>Özel tasarım ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>3 şube · İstanbul, Antalya</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">21</td>
+            <td><a href="https://yavuzkuyumculuk.com/" target="_blank" rel="noopener noreferrer" class="market-link">Yavuz Kuyumculuk</a></td>
+            <td>Klasik ağırlıklı</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>1 şube · Zonguldak</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">22</td>
+            <td><a href="https://altintasonline.com/" target="_blank" rel="noopener noreferrer" class="market-link">Altıntaş Online</a></td>
+            <td>Karma</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>2 şube · Tekirdağ</td>
+          </tr>
+          <tr>
+            <td style="color:var(--text-dark-3);font-size:11px">23</td>
+            <td><a href="https://www.tahanmucevherat.com/" target="_blank" rel="noopener noreferrer" class="market-link">Tahan Mücevherat</a></td>
+            <td>Karma / özel tasarım eğilimli</td>
+            <td><span class="pill-green">Var</span></td>
+            <td>1 şube · İstanbul</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Callout -->
+    <div class="position-callout">
+      <div class="position-callout-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="position-callout-text">
+        <div class="position-callout-label">Bu bize ne söylüyor?</div>
+        <div class="position-callout-body" style="font-size:18px;color:var(--text-dark)">Trafiği yüksek markaların neyi doğru yaptığı, nerede zayıf kaldığı ve hangi boşlukların oluştuğu analiz edildiğinde Alsay için çok daha isabetli bir büyüme stratejisi kurulabilir.</div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     4 — KONUM
+     ============================================================ -->
+<div class="chapter" id="konumlandirma">
+  <div class="chapter-inner">
+    <div class="chapter-num">03</div>
+    <h2 class="chapter-title">Alsay için doğru konum: <em>Ne olmalı?</em></h2>
+  </div>
+</div>
+
+<section class="section light">
+  <div class="page-wrap">
+    <div class="eyebrow" style="color:var(--text-dark-2)"><div class="eyebrow-line" style="background:var(--gold-dim)"></div>Konumlandırma</div>
+
+    <div style="max-width:740px;margin-bottom:48px">
+      <h2 class="headline" style="margin-bottom:16px;color:var(--text-dark)">Ne çok lüks, ne dağınık katalog.</h2>
+      <div class="gold-rule"></div>
+      <p class="lead" style="color:var(--text-dark-2)">Alsay için doğru yer: <strong style="color:var(--text-dark);font-weight:500">güven veren, estetik ama ulaşılabilir, net ve açıklayıcı, modern ama yerel gerçeklikten kopuk olmayan</strong> bir marka sistemi.</p>
+    </div>
+
+    <!-- Hedef Müşteri + Ana Vaat + Tonlar -->
+    <div class="grid-2" style="margin-bottom:32px">
+      <div class="card gold-border">
+        <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:18px">Hedef Müşteri Haritası</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:baseline;gap:12px;padding:13px 0;border-bottom:.5px solid #DDD9D0">
+            <span style="font-size:10px;font-weight:500;color:var(--gold-dim);letter-spacing:.06em;flex-shrink:0">01</span>
+            <span style="font-size:14px;font-weight:400;color:var(--text-dark);line-height:1.45">Güven arayan yerel kadın müşteri</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:13px 0;border-bottom:.5px solid #DDD9D0">
+            <span style="font-size:10px;font-weight:500;color:var(--gold-dim);letter-spacing:.06em;flex-shrink:0">02</span>
+            <span style="font-size:14px;font-weight:400;color:var(--text-dark);line-height:1.45">Fiyat/değer dengesi arayan alıcı</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:13px 0;border-bottom:.5px solid #DDD9D0">
+            <span style="font-size:10px;font-weight:500;color:var(--gold-dim);letter-spacing:.06em;flex-shrink:0">03</span>
+            <span style="font-size:14px;font-weight:400;color:var(--text-dark);line-height:1.45">Hediye odaklı erkek</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:13px 0;border-bottom:.5px solid #DDD9D0">
+            <span style="font-size:10px;font-weight:500;color:var(--gold-dim);letter-spacing:.06em;flex-shrink:0">04</span>
+            <span style="font-size:14px;font-weight:400;color:var(--text-dark);line-height:1.45">Düğün/nişan alışverişçisi</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:13px 0">
+            <span style="font-size:10px;font-weight:500;color:var(--gold-dim);letter-spacing:.06em;flex-shrink:0">05</span>
+            <span style="font-size:14px;font-weight:400;color:var(--text-dark);line-height:1.45">Instagram'dan gelen yeni nesil</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="card">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5C5650;margin-bottom:8px">Ana Vaat</div>
+          <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text-dark);line-height:1.3">Büyük marka primi ödemeden, güven veren ve estetik altın alışverişi.</div>
+        </div>
+        <div class="card">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5C5650;margin-bottom:10px">Kaçınılacak Tonlar</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+            <span style="font-size:11px;font-weight:400;color:var(--text-dark-2);border:.5px solid #C0BAB0;border-radius:3px;padding:5px 12px;background:#F0EDE6;white-space:nowrap">Aşırı lüks / soğuk</span>
+            <span style="font-size:11px;font-weight:400;color:var(--text-dark-2);border:.5px solid #C0BAB0;border-radius:3px;padding:5px 12px;background:#F0EDE6;white-space:nowrap">İspatı olmayan büyük konuşma</span>
+            <span style="font-size:11px;font-weight:400;color:var(--text-dark-2);border:.5px solid #C0BAB0;border-radius:3px;padding:5px 12px;background:#F0EDE6;white-space:nowrap">Pazar tezgahı dili</span>
+            <span style="font-size:11px;font-weight:400;color:var(--text-dark-2);border:.5px solid #C0BAB0;border-radius:3px;padding:5px 12px;background:#F0EDE6;white-space:nowrap">Saldırgan kampanya tonu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Differentiators -->
+    <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5C5650;margin-bottom:16px">Farklılaştırıcı Adaylar</div>
+    <div class="grid-4">
+      <div class="card">
+        <div style="font-family:var(--font-d);font-size:18px;font-weight:400;color:var(--text-dark);line-height:1.25;margin-bottom:8px">Fiyat erişilebilirliği</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Büyük marka primini ödeme zorunluluğu yok. Gerçek değer, net fiyat.</div>
+      </div>
+      <div class="card">
+        <div style="font-family:var(--font-d);font-size:18px;font-weight:400;color:var(--text-dark);line-height:1.25;margin-bottom:8px">Yerel mağaza kökü</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Fiziksel güven — online şüpheci müşteri için kritik ikna noktası.</div>
+      </div>
+      <div class="card" style="border-color:#C8A96A">
+        <div style="font-family:var(--font-d);font-size:18px;font-weight:400;color:var(--text-dark);line-height:1.25;margin-bottom:8px">Sigortalı teslimat + sertifika</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Sertifika, sigortalı kargo ve net süreç iletişimi birlikte çalıştığında satın alma direnci düşer.</div>
+      </div>
+      <div class="card">
+        <div style="font-family:var(--font-d);font-size:18px;font-weight:400;color:var(--text-dark);line-height:1.25;margin-bottom:8px">Modern ama sıcak vitrin dili</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Estetik, modern, ama yabancılaştırmayan. Instagram'da rahat, sitede güvenilir.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     5 — SİSTEM
+     ============================================================ -->
+<div class="chapter" id="sistem">
+  <div class="chapter-inner">
+    <div class="chapter-num">04</div>
+    <h2 class="chapter-title">Ne kurulmalı: <em>Dijital büyüme sistemi</em></h2>
+  </div>
+</div>
+
+<section class="section dark">
+  <div class="page-wrap">
+    <div class="eyebrow"><div class="eyebrow-line"></div>Sistem Mimarisi</div>
+    <p class="lead" style="margin-bottom:40px">Bu yapı sekiz ayrı iş kaleminden değil; birlikte çalışan sekiz büyüme katmanından oluşur. Tek tek iyileştirmeler yapılabilir ama kalıcı sonuç, bu katmanlar aynı sistem gibi çalıştığında gelir.</p>
+
+    <div class="system-8">
+      <div class="s8-block active-block">
+        <div class="s8-num">01</div>
+        <div class="s8-title">Marka Netliği</div>
+        <div class="s8-body" style="color:var(--text-2)">Konumlandırma, kimlik, marka dili ve görsel yön. Her şeyin üzerine kurulacağı temel.</div>
+      </div>
+      <div class="s8-block active-block">
+        <div class="s8-num">02</div>
+        <div class="s8-title">Dijital Vitrin Kalitesi</div>
+        <div class="s8-body" style="color:var(--text-2)">Ana sayfa kurgusu, ürün kartı standardı, ürün çekim kalitesi, Instagram hesabı ve güven unsurları aynı dilde çalışmalı.</div>
+      </div>
+      <div class="s8-block active-block">
+        <div class="s8-num">03</div>
+        <div class="s8-title">Güven Mimarisi</div>
+        <div class="s8-body" style="color:var(--text-2)">Sertifika, sigortalı teslimat, iade netliği, taksit, WhatsApp hattı, mağaza gerçekliği.</div>
+      </div>
+      <div class="s8-block active-block">
+        <div class="s8-num">04</div>
+        <div class="s8-title">Ölçüm & Veri Altyapısı</div>
+        <div class="s8-body" style="color:var(--text-2)">GA4, Meta Pixel, event seti, attribution mantığı. Bu yapı kurulmadan reklam yatırımı doğru okunamaz, iyi çalışan şey büyütülemez.</div>
+      </div>
+      <div class="s8-block">
+        <div class="s8-num">05</div>
+        <div class="s8-title">İçerik & Creator Sistemi</div>
+        <div class="s8-body" style="color:var(--text-2)">Ürün çekimi, sosyal medya dili, yayın takvimi, creator iş birlikleri ve içerik standardı.</div>
+      </div>
+      <div class="s8-block">
+        <div class="s8-num">06</div>
+        <div class="s8-title">Talep Toplama & Reklam</div>
+        <div class="s8-body" style="color:var(--text-2)">Meta & Google reklam. Kampanya reklam içerikleri, remarketing, ürün bazlı reklamlar ve kampanya landing page'leri bu katmanda çalışır.</div>
+      </div>
+      <div class="s8-block">
+        <div class="s8-num">07</div>
+        <div class="s8-title">Email & CRM Temeli</div>
+        <div class="s8-body" style="color:var(--text-2)">Temel otomasyon, sepet hatırlatma, özel gün akışları, liste büyütme.</div>
+      </div>
+      <div class="s8-block">
+        <div class="s8-num">08</div>
+        <div class="s8-title">Tekrarlı Optimizasyon</div>
+        <div class="s8-body" style="color:var(--text-2)">Sayfa iyileştirmeleri, A/B testleri, fiyat testleri, ortalama sepet tutarını artırmak için upsell, downsell, cross-sell, bundle kurgulamaları — ürün sayfasında, sepette, checkout öncesinde ve kampanya landing page'lerinde.</div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <!-- İki motor -->
+    <div style="font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);margin-bottom:20px">Büyümenin İki Motoru</div>
+    <div class="grid-2">
+      <div class="card gold-border">
+        <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Motor 1 — Vitrin İnşası</div>
+        <div class="card-title">Güven ve algı kurar</div>
+        <div class="card-body" style="margin-top:8px;color:var(--text-2)">Bu harcamalar doğrudan satış üretmekten çok, markanın güvenini, görünürlüğünü ve dijital vitrinin kalitesini inşa eder. Branding, ürün çekimi, sosyal medya dili, creator iş birlikleri, dijital vitrin geliştirmeleri ve güven içerikleri bu motorun parçasıdır. Doğrudan satış hedeflemez; satışa zemin hazırlar.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Motor 2 — Talep Toplama</div>
+        <div class="card-title">Satış üretir</div>
+        <div class="card-body" style="margin-top:8px;color:var(--text-2)">Bu harcamalar doğrudan satış amacıyla çalışır. Reklam → ürün sayfası / kampanya sayfası → sepet → satın alma akışı bu motorun içindedir. Dönüşüm kampanyaları, remarketing, ürün bazlı reklamlar ve satış odaklı creator iş birlikleri burada devreye girer. Ölçümleme bu motorda özellikle kritik hale gelir; harcanan para karşılığında alınan sonuç görülebilir ve iyi çalışan yapı performansa göre büyütülebilir.</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:16px 20px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md);font-size:13px;font-weight:400;color:var(--text-2)">
+      Bu iki motor birbirini besler; ama aynı işi yapmaz. Biri güven ve vitrin zeminini kurar, diğeri talebi toplayıp satışa çevirir.
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     6 — YOL HARİTASI
+     ============================================================ -->
+<div class="chapter" id="yolharitasi">
+  <div class="chapter-inner">
+    <div class="chapter-num">05</div>
+    <h2 class="chapter-title">Aşamalı yol haritası: <em>Doğru sıra nedir?</em></h2>
+  </div>
+</div>
+
+<section class="section light">
+  <div class="page-wrap">
+    <div class="eyebrow"><div class="eyebrow-line"></div>Uygulama Planı</div>
+    <p class="lead" style="margin-bottom:40px">Önce yön netleşir, sonra vitrin kurulur, ardından launch başlar; optimizasyon ve ölçekleme ondan sonra gelir.</p>
+
+    <div class="phases">
+      <div class="phase active">
+        <div class="phase-num">Faz 0</div>
+        <div class="phase-title">Teşhis &amp; Yön</div>
+        <ul class="phase-items">
+          <li>Pazar ve rakip haritası</li>
+          <li>Segment hipotezleri</li>
+          <li>Güven katmanı kontrolü</li>
+          <li>Ölçüm altyapısı kontrolü</li>
+          <li>Hedef müşteri kümeleri</li>
+          <li>Konumlandırma kararı</li>
+        </ul>
+      </div>
+      <div class="phase active">
+        <div class="phase-num">Faz 1</div>
+        <div class="phase-title">Kimlik &amp; Vitrin</div>
+        <ul class="phase-items">
+          <li>Marka yönü ve marka dili</li>
+          <li>Görsel dil ve token sistemi</li>
+          <li>Site iskeleti</li>
+          <li>Instagram görünümü</li>
+          <li>Çekim brief sistemi</li>
+          <li>Güven unsurları</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Faz 2</div>
+        <div class="phase-title">Launch Sistemi</div>
+        <ul class="phase-items">
+          <li>Meta + Google kurulumu</li>
+          <li>Creator iş birlikleri planı</li>
+          <li>Kampanya takvimi</li>
+          <li>Landing sayfası öncelikleri</li>
+          <li>İlk email otomasyonları</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Faz 3</div>
+        <div class="phase-title">Optimizasyon</div>
+        <ul class="phase-items">
+          <li>Ürün ve kategori sayfası iyileştirmeleri</li>
+          <li>Mesaj ve teklif testleri</li>
+          <li>Creator ve kampanya performans analizi</li>
+          <li>Upsell / cross-sell / bundle kurguları</li>
+          <li>Kazanan yapıların netleştirilmesi</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Faz 4</div>
+        <div class="phase-title">Ölçekleme</div>
+        <ul class="phase-items">
+          <li>Bütçe artırımı</li>
+          <li>Kazanan kampanyaları büyütme</li>
+          <li>Özel gün ve koleksiyon akışları</li>
+          <li>Remarketing genişletme</li>
+          <li>Email marketing derinleştirme</li>
+          <li>Custom site / app değerlendirmesi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     7 — ROLLER
+     ============================================================ -->
+<div class="chapter" id="roller">
+  <div class="chapter-inner">
+    <div class="chapter-num">06</div>
+    <h2 class="chapter-title">Rol ve sorumluluk <em>dağılımı</em></h2>
+  </div>
+</div>
+
+<section class="section light">
+  <div class="page-wrap">
+    <div class="eyebrow"><div class="eyebrow-line"></div>Çalışma Modeli</div>
+    <p class="lead dark" style="margin-bottom:40px">Net rol ayrımı, işin dağılmasını önler; ortak hedefe daha düzenli ve daha hızlı ilerlenmesini sağlar.</p>
+
+    <div class="grid-2" style="gap:16px">
+
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:16px 20px;background:var(--bg-light-2);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--gold-dim);flex-shrink:0"></div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-dark);letter-spacing:.02em">Growth Lead — Strateji &amp; Büyüme Yönetimi</div>
+        </div>
+        <div style="padding:20px">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--gold-dim)">✓</span> Büyüme stratejisi ve yön</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--gold-dim)">✓</span> Marka ve konumlandırma kararları</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--gold-dim)">✓</span> Launch ve reklam sisteminin yönetimi</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--gold-dim)">✓</span> İçerik / creator tarafına stratejik brief</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--gold-dim)">✓</span> Website tasarımcısına stratejik brief</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--gold-dim)">✓</span> Performans raporlama ve optimizasyon</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:16px 20px;background:var(--bg-light-2);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px">
+          <div style="width:8px;height:8px;border-radius:50%;background:#888;flex-shrink:0"></div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-dark);letter-spacing:.02em">Estetik &amp; İçerik Operasyonu</div>
+        </div>
+        <div style="padding:20px">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Ürün çekimleri ve içerik üretimi</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Instagram / sosyal medya yönetimi</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Creator / influencer koordinasyonu</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> İçerik takviminin uygulanması</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Markanın estetik yönü için destek</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:16px 20px;background:var(--bg-light-2);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px">
+          <div style="width:8px;height:8px;border-radius:50%;background:#888;flex-shrink:0"></div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-dark);letter-spacing:.02em">Teknik Partner — Uygulama</div>
+        </div>
+        <div style="padding:20px">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Site tasarımı ve UI geliştirme</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Analitik ve piksel kurulumları</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> CRO önerilerinin teknik uygulanması</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Teknik entegrasyonlar</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:16px 20px;background:var(--bg-light-2);border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px">
+          <div style="width:8px;height:8px;border-radius:50%;background:#888;flex-shrink:0"></div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-dark);letter-spacing:.02em">Alsay</div>
+        </div>
+        <div style="padding:20px">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Ürün girişi ve panel yönetimi</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Müşteri hizmetleri ve sipariş operasyonu</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Kargo ve teslimat süreçleri</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Fiziksel mağaza operasyonu</li>
+            <li style="font-size:14px;font-weight:400;color:var(--text-dark-2);padding-left:14px;position:relative"><span style="position:absolute;left:0;color:var(--text-dark-3)">✓</span> Nihai karar onayı</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:16px;padding:14px 18px;background:rgba(184,138,64,.07);border:.5px solid rgba(184,138,64,.2);border-radius:var(--r-md);font-size:13px;font-weight:400;color:var(--text-dark-2)">
+      Roller ayrılmış olsa da işin doğası gereği birçok noktada ortak çalışma gerekir. Strateji, içerik, teknik uygulama ve kampanya tarafı çoğu zaman eşgüdümlü ilerler.
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     8 — MARKA KİMLİĞİ & YÖN TEMELİ
+     ============================================================ -->
+<div class="chapter" id="marka">
+  <div class="chapter-inner">
+    <div class="chapter-num">07</div>
+    <h2 class="chapter-title">Yön ve kimlik temeli: <em>Neden kritik?</em></h2>
+  </div>
+</div>
+
+<!-- KÖPRÜ + 4 ETKİ + GALERİ -->
+<section class="section light" style="padding-bottom:20px">
+  <div class="page-wrap">
+    <div class="eyebrow"><div class="eyebrow-line"></div>Faz 0 – Faz 1 Temeli</div>
+
+    <!-- Ana başlık ve lead -->
+    <div style="max-width:720px;margin-bottom:36px">
+      <h2 class="headline dark" style="margin-bottom:18px">Yön ve kimlik temeli neden kritik?</h2>
+      <p style="font-size:16px;font-weight:400;color:var(--text-dark);line-height:1.78;margin-bottom:0">Konum netse, hedef müşteri netse, marka dili ve görsel yön onunla uyumluysa — sonraki her adım daha hızlı, daha az maliyetli ve daha doğru çalışır.</p>
+    </div>
+
+    <!-- Tek kart — ne netleşiyor -->
+    <div style="background:var(--bg-light-card);border:.5px solid var(--border-light-2);border-radius:var(--r-md);padding:18px 24px;max-width:680px;margin-bottom:40px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5C5650;margin-bottom:8px">Bu aşamada ne netleşiyor?</div>
+      <div style="font-size:14px;font-weight:400;color:var(--text-dark);line-height:1.65">Hedef müşteri profilleri · konumlandırma kararı · yazılı dil · görsel dil · vitrin yönü</div>
+    </div>
+
+    <!-- Divider -->
+    <div style="height:.5px;background:var(--border-light);margin-bottom:40px"></div>
+
+    <!-- Branding'in 4 somut etkisi -->
+    <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5C5650;margin-bottom:18px">Branding'in 4 Somut Etkisi</div>
+    <div class="grid-4" style="gap:12px;margin-bottom:16px">
+      <div class="card" style="padding:20px 22px">
+        <div style="font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:6px">Güven etkisi</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Daha ciddi, daha risksiz, daha profesyonel algı.</div>
+      </div>
+      <div class="card" style="padding:20px 22px">
+        <div style="font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:6px">Fiyat algısı etkisi</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Aynı ürünün daha değerli ama daha makul görünmesi.</div>
+      </div>
+      <div class="card" style="padding:20px 22px">
+        <div style="font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:6px">Dönüşüm etkisi</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Reklamdan gelen kişinin daha rahat satın alma eğilimi göstermesi.</div>
+      </div>
+      <div class="card" style="padding:20px 22px">
+        <div style="font-size:14px;font-weight:600;color:var(--text-dark);margin-bottom:6px">Marka imajı</div>
+        <div style="font-size:13px;font-weight:400;color:var(--text-dark-2);line-height:1.65">Fiziki mağaza ve iş ortaklıkları tarafında marka algısının yükseltmesi.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOKEN GALERİSİ -->
+<section class="bis-section" id="marka-section" style="padding-top:24px;border-top:.5px solid var(--border-light)">
+  <div class="page-wrap">
+    <div class="eyebrow" style="color:var(--gold-dim)"><div class="eyebrow-line" style="background:var(--gold-dim)"></div>Marka Yönü Örnekleri</div>
+
+    <!-- Metin hiyerarşisi -->
+    <div style="max-width:680px;margin-bottom:32px">
+      <p style="font-size:16px;font-weight:400;color:var(--text-dark);line-height:1.78;margin-bottom:0">Buradaki çalışma yalnızca renk ve tipografi seçimi değildir. Hedef persona, yazılı dil, görsel dil, ürün sunumu ve dijital vitrin yönü birlikte düşünülür. Aşağıdaki örnekler bu yönün nasıl somutlaşabileceğini göstermek için hazırlanmıştır.</p>
+    </div>
+    <div style="padding:10px 18px;background:rgba(184,138,64,.07);border-left:2px solid rgba(184,138,64,.4);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:13px;font-weight:400;color:var(--text-dark-2);margin-bottom:48px;max-width:600px">
+      Seçilecek yön, sonraki fazlarda site, Instagram, ürün çekimi, kampanya dili ve landing page yapısına temel olur.
+    </div>
+
+    <!-- Token Kartları -->
+    <div style="display:flex;flex-direction:column;gap:32px">
+
+      <!-- Brand 01 — Toprak Altın -->
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border-light)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+            <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text-dark)">Toprak Altın</div>
+            <div style="display:flex;gap:6px">
+              <div style="width:16px;height:16px;border-radius:50%;background:#2C1F14;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#C4A882;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#FAF7F2;border:1px solid #DDD9D0;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-3)">Sıcak krem zemin · Amber gold aksent · Lora · Yuvarlak köşeler</div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-2);margin-top:4px">Hedef segment: 30–55 yaş · İzmir odaklı · Sıcak, yerel, klasik kuyumcu hissi</div>
+        </div>
+        <div style="background:#FAF7F2">
+          <img src="brand-01-toprak-altin.svg" alt="Toprak Altın Marka Kimlik Sayfası" style="width:100%;height:auto;display:block"/>
+        </div>
+        <div style="padding:14px 20px;border-top:1px solid var(--border-light);display:flex;gap:10px">
+          <a href="brand-01-toprak-altin-light.html" target="_blank" rel="noopener" style="font-size:12px;font-weight:500;color:var(--text-dark-2);border:.5px solid var(--border-light-2);border-radius:var(--r-sm);padding:7px 14px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .18s">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>Açık versiyon
+          </a>
+          <a href="brand-01-toprak-altin-dark.html" target="_blank" rel="noopener" style="font-size:12px;font-weight:500;color:var(--text-dark-2);border:.5px solid var(--border-light-2);border-radius:var(--r-sm);padding:7px 14px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .18s">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>Koyu versiyon
+          </a>
+        </div>
+      </div>
+
+      <!-- Brand 02 — Zümrüt Oksit -->
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border-light)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+            <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text-dark)">Zümrüt Oksit</div>
+            <div style="display:flex;gap:6px">
+              <div style="width:16px;height:16px;border-radius:50%;background:#0F2010;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#B88820;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#F2F5F0;border:1px solid #C8D5C2;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-3)">Soğuk yeşil zemin · Oksit altın aksent · Lora · Organik köşeler</div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-2);margin-top:4px">Hedef segment: 28–45 yaş · Doğal ve mineral his · Modern ama toprak bağlantılı</div>
+        </div>
+        <div style="background:#F2F5F0">
+          <img src="brand-02-zumrut-oksit.svg" alt="Zümrüt Oksit Marka Kimlik Sayfası" style="width:100%;height:auto;display:block"/>
+        </div>
+        <div style="padding:14px 20px;border-top:1px solid var(--border-light);display:flex;gap:10px">
+          <a href="brand-02-zumrut-oksit-light.html" target="_blank" rel="noopener" class="preview-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>Açık versiyon
+          </a>
+          <a href="brand-02-zumrut-oksit-dark.html" target="_blank" rel="noopener" class="preview-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>Koyu versiyon
+          </a>
+        </div>
+      </div>
+
+      <!-- Brand 04 — Gecenin Mavisi -->
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border-light)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+            <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text-dark)">Gecenin Mavisi</div>
+            <div style="display:flex;gap:6px">
+              <div style="width:16px;height:16px;border-radius:50%;background:#0A1030;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#E0A800;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#EFF2F8;border:1px solid #B0BCE0;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-3)">Lacivert lapis zemin · Altın yıldız aksent · Libre Baskerville · Sharp köşeler</div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-2);margin-top:4px">Hedef segment: 28–45 yaş · Kurumsal & hediyeye uygun · Gece, şehir, şık his</div>
+        </div>
+        <div style="background:#EFF2F8">
+          <img src="brand-04-gecenin-mavisi.svg" alt="Gecenin Mavisi Marka Kimlik Sayfası" style="width:100%;height:auto;display:block"/>
+        </div>
+        <div style="padding:14px 20px;border-top:1px solid var(--border-light);display:flex;gap:10px">
+          <a href="brand-04-gecenin-mavisi-light.html" target="_blank" rel="noopener" class="preview-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>Açık versiyon
+          </a>
+          <a href="brand-04-gecenin-mavisi-dark.html" target="_blank" rel="noopener" class="preview-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>Koyu versiyon
+          </a>
+        </div>
+      </div>
+      <!-- Brand 03 — Mermer & Bakır -->
+      <div style="background:#fff;border:1px solid var(--border-light);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-light)">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border-light)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px">
+            <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text-dark)">Mermer & Bakır</div>
+            <div style="display:flex;gap:6px">
+              <div style="width:16px;height:16px;border-radius:50%;background:#1A1614;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#B86838;flex-shrink:0"></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#FAFAF8;border:1px solid #E8E4DC;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-3)">Kırık beyaz mermer zemin · Bakır aksent · Playfair Display · Yuvarlak köşeler</div>
+          <div style="font-size:12px;font-weight:400;color:var(--text-dark-2);margin-top:4px">Hedef segment: 32–50 yaş · Premium-lite his · Sofistike ama soğuk olmayan</div>
+        </div>
+        <div style="background:#FAFAF8">
+          <img src="brand-03-mermer-bakir.svg" alt="Mermer Bakır Marka Kimlik Sayfası" style="width:100%;height:auto;display:block"/>
+        </div>
+        <div style="padding:14px 20px;border-top:1px solid var(--border-light);display:flex;gap:10px">
+          <a href="brand-03-mermer-bakir-light.html" target="_blank" rel="noopener" class="preview-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>Açık versiyon
+          </a>
+          <a href="brand-03-mermer-bakir-dark.html" target="_blank" rel="noopener" class="preview-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/></svg>Koyu versiyon
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     9 — KAPANIS
+     ============================================================ -->
+<div class="chapter" id="kapanis">
+  <div class="chapter-inner">
+    <div class="chapter-num">08</div>
+    <h2 class="chapter-title">Son adım: <em>Bu yapı nasıl hayata geçer?</em></h2>
+  </div>
+</div>
+
+<section class="section dark" style="padding-top:52px;padding-bottom:64px">
+  <div class="page-wrap">
+    <div class="eyebrow" style="margin-bottom:20px"><div class="eyebrow-line"></div>Özet</div>
+
+    <div style="max-width:680px;margin-bottom:40px">
+      <div style="font-family:var(--font-d);font-size:clamp(28px,3.5vw,44px);font-weight:300;font-style:italic;color:var(--gold);line-height:1.15;margin-bottom:16px">
+        Zemin kurulmuş. Sıradaki adım bunu hayata geçirmek.
+      </div>
+      <div style="font-family:var(--font-d);font-size:clamp(22px,2.8vw,34px);font-weight:400;color:var(--text);line-height:1.25">
+        Alsay'ı dijitalde tercih edilen, güven veren ve büyüyebilen bir sisteme dönüştürmek.
+      </div>
+    </div>
+
+    <!-- İki aşama kartları -->
+    <div class="grid-2" style="gap:16px;margin-bottom:48px">
+      <div class="card" style="padding:28px 32px">
+        <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Aşama 1</div>
+        <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text);margin-bottom:16px;line-height:1.2">Kurulum · Strateji · Sistem İnşası</div>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Pazar ve rakip teşhisi</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Hedef müşteri ve konumlandırma kararı</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Marka yönü, yazılı dil ve görsel dil</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Dijital vitrin ve güven katmanı</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Ölçüm altyapısı ve launch hazırlığı</li>
+        </ul>
+        <div style="padding-top:16px;border-top:.5px solid var(--border);font-size:12px;font-weight:400;color:var(--text-3);line-height:1.6">Bu aşama, sonraki tüm reklam ve büyüme çalışmalarının sağlıklı çalışacağı zemini kurar.</div>
+      </div>
+      <div class="card" style="padding:28px 32px">
+        <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Aşama 2</div>
+        <div style="font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--text);margin-bottom:16px;line-height:1.2">Uygulama · Büyüme · Performans</div>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Meta ve Google reklam yönetimi</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Creator ve kampanya uygulamaları</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Remarketing ve talep toplama</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Optimizasyon ve testler</li>
+          <li style="font-size:13px;font-weight:400;color:var(--text-2);padding-left:14px;position:relative;line-height:1.55"><span style="position:absolute;left:0;color:var(--gold-dim)">—</span>Ölçekleme ve gelir artırma kurguları</li>
+        </ul>
+        <div style="padding-top:16px;border-top:.5px solid var(--border);font-size:12px;font-weight:400;color:var(--text-3);line-height:1.6">Aşama 1 zemini kurulduktan sonra bu motor devreye girer ve ölçülebilir büyüme başlar.</div>
+      </div>
+    </div>
+
+    <!-- Bu çalışma Alsay'a ne kazandırır -->
+    <div style="border-top:.5px solid var(--border-2);padding-top:36px">
+      <div style="font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-2);margin-bottom:20px">Bu çalışma Alsay'a ne kazandırır?</div>
+      <div class="closing-benefits-grid" style="align-items:stretch">
+        <div style="padding:16px 18px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:400;color:var(--text);line-height:1.5">Daha güven veren bir marka görünümü</div>
+        </div>
+        <div style="padding:16px 18px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:400;color:var(--text);line-height:1.5">Daha güçlü bir dijital vitrin</div>
+        </div>
+        <div style="padding:16px 18px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:400;color:var(--text);line-height:1.5">Daha sağlıklı reklam zemini</div>
+        </div>
+        <div style="padding:16px 18px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:400;color:var(--text);line-height:1.5">Daha yüksek satış potansiyeli</div>
+        </div>
+        <div style="padding:16px 18px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:400;color:var(--text);line-height:1.5">Daha kontrollü büyüme</div>
+        </div>
+        <div style="padding:16px 18px;background:var(--bg-elevated);border:.5px solid var(--border);border-radius:var(--r-md)">
+          <div style="font-size:13px;font-weight:400;color:var(--text);line-height:1.5">Daha güçlü ticari meşruiyet</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="sunum-footer">
+  <div class="footer-brand">ALSAY <span>ALTIN</span></div>
+  <div class="footer-copy">Wave Creative Studio · alsay.wavecreativestudio.co · 2026</div>
+</footer>
+
+<script>
+// Tüm harici linkler yeni sekmede açılsın
+document.querySelectorAll('a[href^="http"]').forEach(a => {
+  if (!a.getAttribute('target')) {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+  }
+});
+
+// Active nav highlight on scroll
+const navLinks = document.querySelectorAll('.sunum-nav-links a');
+const observedTargets = [...navLinks]
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.style.color = '';
+        link.style.borderBottomColor = '';
+      });
+      const active = document.querySelector(`.sunum-nav-links a[href="#${entry.target.id}"]`);
+      if (active) {
+        active.style.color = 'var(--gold)';
+        active.style.borderBottomColor = 'var(--gold)';
+        active.style.transition = 'color .2s';
+      }
+    }
+  });
+}, {
+  threshold: 0.45,
+  rootMargin: '-72px 0px -35% 0px'
+});
+
+observedTargets.forEach(target => observer.observe(target));
+</script>
+</body>
+</html>
