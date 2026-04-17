@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<script>
+(function() {
+  var correct = "alsay2026";
+  var entered = sessionStorage.getItem("alsay_auth");
+  if (entered !== correct) {
+    document.documentElement.style.display = "none";
+    var pw = prompt("Bu sunum gizlidir. Erişim şifresini girin:");
+    if (pw === correct) {
+      sessionStorage.setItem("alsay_auth", correct);
+      document.documentElement.style.display = "";
+    } else {
+      document.body.innerHTML = "";
+      document.documentElement.style.display = "";
+      document.write('<div style="font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;background:#0C0B09;color:#645F58;font-size:14px;letter-spacing:.05em">Erişim reddedildi.</div>');
+    }
+  }
+})();
+</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Alsay Altın — Dijital Büyüme Sistemi</title>
